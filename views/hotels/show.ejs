@@ -1,0 +1,92 @@
+<% layout('./layouts/boilerplate') %>
+  <div class="row mb-3">  
+    <div class="card col-6 p-0">
+      <img class="card-img-top" src="\images\img1.jpg"  alt=""/>
+    <div class="card-body">
+        <h5 class="card-title"><%=hotel.title %></h5>
+        <p class="card-text"><%=hotel.description%></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <p class="card-text"><b>Price: </b>$<%=hotel.price%></p>
+        </li>
+        <li class="list-group-item">
+          <p class="card-text"><b>Rating: </b><%=hotel.rating%></p>
+        </li>
+        <li class="list-group-item">
+          <p class="card-text"><b>Location: </b><%=hotel.location%></p>
+        </li>
+        <li class="list-group-item">
+          <p class="card-text"><b>Submitted by: </b><%=hotel.author.username%></p>
+        </li>
+      </ul>
+      <% if(loggedInUser && hotel.author.equals(loggedInUser)) {%>
+        <div class="card-body">
+          <a href="/hotels/<%=hotel._id%>/edit" class="btn btn-outline-dark">Edit Hotel</a>
+          <a href="/hotels/<%=hotel._id%>/delete" class="btn btn-danger">Delete</a>
+        </div>
+      <% } %>
+    </div>
+    <div class="mt-4 col-6">
+
+      <h5>Reviews</h5>
+      <% if(loggedInUser) {%>
+      <h6>Leave a Review</h6>
+      <form
+        action="/hotels/<%=hotel._id%>/reviews"
+        method="POST"
+        class="mb-3 needs-validation was-validated"
+        novalidate
+      >
+        <div class="form-group">
+          <div class="mb-3">
+            <label class="form-label" for="rating">Rating</label>
+            <input
+              class="form-range"
+              min="1"
+              max="5"
+              type="range"
+              name="review[rating]"
+              id="rating"
+            />
+          </div>
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+        <div class="form-group">
+          <div class="mb-2">
+            <label class="form-label" for="comment">Review</label>
+            <textarea
+              class="form-control"
+              name="review[comment]"
+              id="comment"
+              cols="15"
+              rows="3"
+              required
+            >
+            </textarea>
+          </div>
+          <div class="valid-feedback">Looks Good!</div>
+        </div>
+        <button class="mb-4 btn btn-success">Submit</button>
+      </form>
+      <% } %>
+      <div>
+        <% for(let reviews of hotel.reviews) { %>
+        <div class="card mb-3">
+           <div class="card-body">
+              <h5 class="card-title">
+                Rating: <%= reviews.rating %> 
+              </h5>
+              <div class="fst-italic"><b>By:</b> <%=reviews.author.username%></div>
+              <p class="card-text"><b>Comment: </b><%= reviews.comment %></p>
+              <% if(loggedInUser && reviews.author.equals(loggedInUser._id)) {%>
+              <form action="/hotels/<%=hotel._id%>/reviews/<%=reviews._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+              <% } %>
+            </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>

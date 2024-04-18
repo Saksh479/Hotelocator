@@ -1,0 +1,30 @@
+<% layout('./layouts/boilerplate') %>
+
+<h1 class="text-center">All Hotels</h1>
+<div class="container">
+    <div class="row">
+      <% for (let hotel of hotels) { %>
+        <div class="col-md-12 mb-3">          
+          <div class="card" >
+            <div class="row">
+              <div class="col-md-4"> <!-- Modified this div -->
+                <img src="/images/img3.jpg" class="card-img" alt="" style="height: 100%; object-fit: cover;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= hotel.title %></h5>
+                  <p class="card-text "><%= hotel.description %></p>
+                  <p class="card-text"><b>Price: </b>$<%= hotel.price %></p>
+                  <p class="card-text"><b>Rating: </b><%= hotel.rating %></p>
+                  <p class="card-text"><b>Location: </b><%= hotel.location %></p> 
+                  <br>
+                  <a href="/hotels/<%=hotel.id%>" class="btn btn-dark"> Learn More </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </a>
+      <% } %>
+  </div>
+</div>
