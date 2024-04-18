@@ -1,8 +1,9 @@
+# Hotelocator
 Hotelocator is a website where users can create and review hotels. In order to review or create a hotel, you must have an account. This project was part of Colt Steele's web dev course on udemy.
 
 This project was created using Node.js, Express, MongoDB, and Bootstrap. Passport.js was used to handle authentication.
 
-##Features
+# Features
 Users can create, edit, and remove hotels
 Users can review hotels once, and edit or remove their review
 User profiles include more information on the user (full name, email, phone, join date), their hotels, and the option to edit their profile or delete their account
