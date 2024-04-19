@@ -1,4 +1,5 @@
 const Hotel = require('./models/hotelocator.js');
+const Review = require('./models/review.js');
 const { hotelSchema } = require('./schemas.js');
 const { expressError } = require('./utils/expressError.js');
 const { reviewSchema } = require("./schemas.js");
@@ -48,4 +49,4 @@ module.exports.validateReview = (req, res, next) => {
       throw new expressError(msg, 400); // Change 'result.error.details' to 'msg' to display the error message
     } else {
       next();
-    }};
+}};
