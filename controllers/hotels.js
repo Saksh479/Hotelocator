@@ -5,10 +5,15 @@ module.exports.index = async (req, res) => {
     res.render("hotels/index", { hotels });
 }
 
-module.exports.createHotel = async (req, res) => {
-    const hotel = new Hotel(req.body.hotel);
+module.exports.createHotel = async (req, res) => {  
+  const hotel = new Hotel(req.body.hotel);
     hotel.author = req.user._id;
+    hotel.images = req.files.map(file => ({
+      url: file.path,
+      filename: file.filename
+    }));
     await hotel.save();
+    console.log(hotel);
     req.flash("success", "Successfully made a new hotel!");
     res.redirect(`/hotels/${hotel._id}`);
 }

@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production"){
+  require("dotenv").config();
+}
+const expressError = require("./utils/expressError.js");
 const express = require("express");
 const app = express();
 const flash = require("connect-flash");
@@ -8,7 +12,6 @@ const methodOverride = require("method-override");
 const path = require("path");
 const hotelRoutes = require('./routes/hotels')
 const reviewRoutes = require('./routes/reviews')
-const expressError = require("./utils/expressError.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");

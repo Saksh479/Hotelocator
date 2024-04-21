@@ -3,22 +3,26 @@ const router = express.Router();
 const catchAsync = require("../utils/catchAsync.js");
 const { isLoggedIn, verifyAuthor, validateHotel } = require("../middleware.js");
 const hotels = require("../controllers/hotels.js");
+const multer = require('multer');
+const {storage} = require('../cloudinary');
+const upload = multer({ storage });
 
-router.get("/", catchAsync(hotels.index));
 
-//create
+router.route('/')
+.get(catchAsync(hotels.index))
+.post( isLoggedIn ,upload.array('image'),validateHotel, catchAsync(hotels.createHotel)); 
+
 router.get("/new", isLoggedIn , (req, res) => { res.render("hotels/new"); });
-router.post("/", isLoggedIn ,validateHotel, catchAsync(hotels.createHotel)); 
 
-//show
-router.get("/:id", catchAsync(hotels.showHotel));
+router.route('/:id')
+.get( catchAsync(hotels.showHotel))
+.put(isLoggedIn, verifyAuthor, catchAsync(hotels.editHotel))
+.delete(isLoggedIn ,catchAsync(hotels.deleteHotel));
 
 //edit
 router.get("/:id/edit",isLoggedIn ,catchAsync(hotels.renderEditForm));
-router.put("/:id",isLoggedIn, verifyAuthor, catchAsync(hotels.editHotel));
 
 //delete
 router.get("/:id/delete",isLoggedIn ,catchAsync(hotels.renderDeleteForm));
-router.delete("/:id",isLoggedIn ,catchAsync(hotels.deleteHotel));
 
 module.exports = router;

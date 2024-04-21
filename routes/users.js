@@ -4,14 +4,16 @@ const passport = require("passport");
 const router = express.Router();
 const users = require("../controllers/users");
 
-router.get("/register", (req, res) => {res.render("users/register");});
+router.route('/register')
+.get((req, res) => {res.render("users/register");})
+.post(catchAsync(users.register));
 
-router.post("/register", catchAsync(users.register));
 
-router.get("/login", users.renderLogin);
 
-router.post("/login", passport.authenticate('local',{failureFlash:true ,failureRedirect: "/login" }) 
-,catchAsync(users.login));
+router.route('/login')
+.get(users.renderLogin)
+.post(passport.authenticate('local',{failureFlash:true ,failureRedirect: "/login" }),catchAsync(users.login));
+
 
 router.get("/logout", users.logout);
 

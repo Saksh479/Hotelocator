@@ -5,6 +5,12 @@ const hotelSchema = new Schema({
     title: String,
     price: String,
     rating: Number,
+    image: [
+        {
+            url: String,
+            filename: String
+        }
+    ],
     description: String,
     location: String,
     author: {
