@@ -1,10 +1,12 @@
 <% layout('./layouts/boilerplate') %>
 <link rel="stylesheet" href='/css/starability.css'>
-<div class="container">
+<div class="container mb-2">
   <div class="row">  
     <div class="col-6 p-0">
       <div class="card">
-      <img class="card-img-top" src="\images\img1.jpg"  alt=""/>
+        <% for(let img of hotel.image) {%>
+      <img class="card-img-top" src="<%=img.url%>"  alt=""/>
+      <% } %>
        <div class="card-body">
         <h5 class="card-title"><%=hotel.title %></h5>
         <p class="card-text"><%=hotel.description%></p>

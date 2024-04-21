@@ -6,16 +6,19 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.createHotel = async (req, res) => {  
+  console.log(req.files);
   const hotel = new Hotel(req.body.hotel);
-    hotel.author = req.user._id;
-    hotel.images = req.files.map(file => ({
+  hotel.author = req.user._id;
+  hotel.image = req.files.map(file => {
+    return {
       url: file.path,
       filename: file.filename
-    }));
-    await hotel.save();
-    console.log(hotel);
-    req.flash("success", "Successfully made a new hotel!");
-    res.redirect(`/hotels/${hotel._id}`);
+    }
+  });
+  await hotel.save();
+  console.log(hotel);
+  req.flash("success", "Successfully made a new hotel!");
+  res.redirect(`/hotels/${hotel._id}`);
 }
 
 module.exports.showHotel = async (req, res) => {
