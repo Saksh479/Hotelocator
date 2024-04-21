@@ -79,9 +79,7 @@
         <% for(let reviews of hotel.reviews) { %>
         <div class="card mb-3">
            <div class="card-body">
-              <h5 class="card-title">
-                Rating: <%= reviews.rating %> 
-              </h5>
+              <p class="starability-result card-title" data-rating="<%= reviews.rating %>"></p>
               <div class="fst-italic"><b>By:</b> <%=reviews.author.username%></div>
               <p class="card-text"><b>Comment: </b><%= reviews.comment %></p>
               <% if(loggedInUser && reviews.author.equals(loggedInUser._id)) {%>
