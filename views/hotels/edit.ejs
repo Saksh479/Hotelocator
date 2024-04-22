@@ -46,7 +46,7 @@
           </div>
         <div class="container">
           <% hotel.image.forEach(function(img,i) { %>
-            <img src="<%=img.url%>" alt="hotel image" class="col-3 mt-3 mb-1" style="width: 10rem; height: 10rem; object-fit: cover;"/>
+            <img src="<%= img.thumbnail %>" alt="hotel image" class="img-thumbnail col-3 mt-3 mb-1" style="width: 10rem; height: 10rem; object-fit: cover;"/>
               <input type="checkbox" name="deleteImages[]" value="<%=img.filename%>"/>
               <label for="deleteImages">Delete</label>
           <% }); %>
