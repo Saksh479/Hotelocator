@@ -24,11 +24,28 @@ const seedDB = async () => {
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatumm.',
         location: `${cities[random1000].city}, ${cities[random1000].state}`,
         price: Math.floor(Math.random() * 20) + 10,
-        rating: Math.floor(Math.random() * 5) + 1
-        })
+        rating: Math.floor(Math.random() * 5) + 1,
+        image: [
+            {
+                url: 'https://res.cloudinary.com/hotelocator/image/upload/v1713815449/Hotelocator/cb3ir1dipsjhbp3iajlc.jpg',
+                filename: 'Hotelocator/cb3ir1dipsjhbp3iajlc'
+              },
+            {
+                url: 'https://res.cloudinary.com/hotelocator/image/upload/v1713815453/Hotelocator/deaa1lvrew5gw6zgdd4y.jpg',
+                filename: 'Hotelocator/deaa1lvrew5gw6zgdd4y'
+            },
+              
+            {
+                url: 'https://res.cloudinary.com/hotelocator/image/upload/v1713826466/Hotelocator/zkdgybp58lxk2j1xqu9m.jpg',
+                filename: 'Hotelocator/zkdgybp58lxk2j1xqu9m'
+            }
+          ],
+        });
 await hotel.save();
 
     }
 }
 seedDB();
 console.log('Seeded database');
+
+

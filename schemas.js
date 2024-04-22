@@ -8,6 +8,7 @@ module.exports.hotelSchema = Joi.object({
     location: Joi.string().required(),
     rating: Joi.number().required().min(0).max(5),
   }).required(),
+  deleteImages: Joi.array(),
 });
 
 module.exports.reviewSchema = Joi.object({

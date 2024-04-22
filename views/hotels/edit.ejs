@@ -1,94 +1,68 @@
 <% layout('./layouts/boilerplate') %>
-  <div class="container-fluid justify-center">
-    <h1>Edit Hotel</h1>
-    <br />
+  <div class="container row">
+    <div class="card offset-md-3 col-6" >
+      <h1 class="text-center">Edit Hotel</h1>
     <form
       action="/hotels/<%=hotel.id%>?_method=PUT"
       method="POST"
       novalidate
       class="needs-validation"
+      enctype="multipart/form-data"
     >
-      <div class="position-absolute start-0 container-xl w-25">
+    <div class="container-xl mb-3">
         <div class="form-group">
           <label for="title">Title</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Title"
-            name="title"
-            id="title"
-            value="<%=hotel.title%>"
-            readonly
-            style="cursor: default"
-          />
+          <input class="form-control"type="text" placeholder="Title"   name="hotel[title]" id="title" value="<%=hotel.title%>" style="cursor: default"/>
           <div class="valid-feedback">Looks good!</div>
         </div>
+        
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea
-            class="form-control"
-            placeholder="Description"
-            name="description"
-            id="description"
-            cols="30"
-            rows="2"
-            required
-          >
-<%=hotel.description%></textarea
-          >
+          <textarea  class="form-control"  placeholder="Description"  name="hotel[description]"  id="description"  cols="30  rows="2"  required><%=hotel.description%></textarea>
           <div class="valid-feedback">Looks good!</div>
         </div>
+
         <div class="form-group">
           <label for="price">Price</label>
-          <input
-            class="form-control"
-            type="number"
-            placeholder="Price"
-            name="price"
-            id="price"
-            value="<%=hotel.price%>"
-            required
-          />
+          <input  class="form-control"  type="number"   placeholder="Price"  name="hotel[price]"  id="price"  value="<%=hotel.price%>"  required/>
           <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="form-group">
           <label for="rating">Rating</label>
-          <input
-            class="form-control"
-            type="number"
-            placeholder="Rating"
-            name="rating"
-            id="rating"
-            value="<%=hotel.rating%>"
-            required
-          />
+          <input  class="form-control"  type="number"   placeholder="Rating"  name="hotel[rating]"  id="rating"  value="<%=hotel.rating%>"  required/>
           <div class="valid-feedback">Looks good!</div>
         </div>
+    
         <div class="form-group">
           <label for="location">Location</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Location"
-            name="location"
-            id="location"
-            value="<%=hotel.location%>"
-            required
-          />
+          <input  class="form-control" type="text" placeholder="Location" name="hotel[location]" id="location" value="<%=hotel.location%>" required  />
           <div class="valid-feedback">Looks good!</div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Add Images</label>
+            <input class="form-control" type="file" placeholder="image" name="image" id="image" multiple/>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        <div class="container">
+          <% hotel.image.forEach(function(img,i) { %>
+            <img src="<%=img.url%>" alt="hotel image" class="col-3 mt-3 mb-1" style="width: 10rem; height: 10rem; object-fit: cover;"/>
+              <input type="checkbox" name="deleteImages[]" value="<%=img.filename%>"/>
+              <label for="deleteImages">Delete</label>
+          <% }); %>
         </div>
         <br />
         <div class="btn-group" role="group">
-          <a href="/hotels/<%=hotel.id%>" class="btn btn-light"
-            >Go back to Hotel</a
-          >
+          <a href="/hotels/<%=hotel.id%>" class="btn btn-light">Go back to Hotel</a>
           <button class="btn btn-dark" type="submit">Submit</button>
         </div>
       </div>
     </form>
   </div>
+  </div>
+</div>
+</div>
 <script>
-  // Enable Bootstrap validation styles
   (function () {
     "use strict";
 

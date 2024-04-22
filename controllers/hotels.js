@@ -1,5 +1,5 @@
 const Hotel = require("../models/hotelocator");
-
+const cloudinary = require("cloudinary").v2;
 module.exports.index = async (req, res) => {
     const hotels = await Hotel.find({});
     res.render("hotels/index", { hotels });
@@ -55,13 +55,22 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.editHotel = async (req, res) => {
     const { id } = req.params;
-    const hotel = await Hotel.findById(id);
-    const newHotel = req.body;
-    hotel.name = newHotel.name;
-    hotel.location = newHotel.location;
-    hotel.price = newHotel.price;
-    hotel.description = newHotel.description;
-    hotel.rating = newHotel.rating;
+    console.log(req.body);
+    const hotel = await Hotel.findByIdAndUpdate(id, {
+      ...req.body.hotel,
+    });
+    const imgs = req.files.map(file => ({
+        url: file.path,
+        filename: file.filename
+      }));
+    hotel.image.push(...imgs);
+    if(req.body.deleteImages){
+      for(let filename of req.body.deleteImages){
+        await cloudinary.uploader.destroy(filename);
+      }
+    await hotel.updateOne({$pull: {image: {filename: {$in: req.body.deleteImages}}}})
+    }
+    // console.log(hotel);
     await hotel.save();
     req.flash("success", "Successfully updated hotel!");
     res.redirect(`/hotels/${hotel._id}`);

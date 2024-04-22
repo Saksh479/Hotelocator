@@ -16,11 +16,11 @@ router.get("/new", isLoggedIn , (req, res) => { res.render("hotels/new"); });
 
 router.route('/:id')
 .get( catchAsync(hotels.showHotel))
-.put(isLoggedIn, verifyAuthor, catchAsync(hotels.editHotel))
+.put(isLoggedIn, verifyAuthor,upload.array('image'),validateHotel, catchAsync(hotels.editHotel))
 .delete(isLoggedIn ,catchAsync(hotels.deleteHotel));
 
 //edit
-router.get("/:id/edit",isLoggedIn ,catchAsync(hotels.renderEditForm));
+router.get("/:id/edit",isLoggedIn,catchAsync(hotels.renderEditForm));
 
 //delete
 router.get("/:id/delete",isLoggedIn ,catchAsync(hotels.renderDeleteForm));
