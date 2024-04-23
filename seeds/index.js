@@ -40,6 +40,13 @@ const seedDB = async () => {
                 filename: 'Hotelocator/zkdgybp58lxk2j1xqu9m'
             }
           ],
+          geometry: {
+              type: 'Point',
+              coordinates: [
+                  cities[random1000].longitude,
+                  cities[random1000].latitude
+              ]
+          }
         });
 await hotel.save();
 

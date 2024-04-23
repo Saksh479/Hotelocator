@@ -1,5 +1,5 @@
 <% layout('./layouts/boilerplate') %>
-
+<div id="map"></div>
 <h1 class="text-center">All Hotels</h1>
 <div class="container">
     <div class="row">
@@ -8,7 +8,11 @@
           <div class="card" >
             <div class="row">
               <div class="col-md-4"> <!-- Modified this div -->
-                <img src="<%=hotel.image[Math.floor(Math.random()*3)].url%>" class="card-img" alt="" style="height: 100%; object-fit: cover;">
+                <% if(hotel.image.length) {%>
+                <img src="<%=hotel.image[0].url%>" class="card-img" alt="" style="height: 100%; object-fit: cover;">
+                <% } else{ %>
+                <img src="/images/img1.jpg" class="card-img" alt="" style="height: 100%; object-fit: cover;">
+                <% } %>
               </div>
               <div class="col-md-8">
                 <div class="card-body">

@@ -25,7 +25,8 @@
         </div>
       
        <div class="card-body">
-        <h5 class="card-title"><%=hotel.title %></h5>
+        <h5 class="card-title"><%=hotel.title
+           %></h5>
         <p class="card-text"><%=hotel.description%></p>
       </div>
       <ul class="list-group list-group-flush">
@@ -42,6 +43,7 @@
           <p class="card-text"><b>Submitted by: </b><%=hotel.author.username%></p>
         </li>
       </ul>
+      <div id='map' style='width: auto; height: 20rem;'></div>
       <% if(loggedInUser && hotel.author.equals(loggedInUser)) {%>
         <div class="card-body">
           <a href="/hotels/<%=hotel._id%>/edit" class="btn btn-outline-dark">Edit Hotel</a>
@@ -113,3 +115,8 @@
       </div>
     </div>
   </div>
+  <script>
+    const mapToken = '<%- process.env.MAPBOX_TOKEN%>';
+    const hotel = '<%- JSON.stringify(hotel)  %>' ;
+  </script>
+  <script src="/js/showMaps.js"></script>

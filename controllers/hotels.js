@@ -1,13 +1,22 @@
 const Hotel = require("../models/hotelocator");
 const cloudinary = require("cloudinary").v2;
+const mapboxGeoCoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapboxToken = process.env.MAPBOX_TOKEN;
+const geoCoder = mapboxGeoCoding({ accessToken: mapboxToken });
+
 module.exports.index = async (req, res) => {
     const hotels = await Hotel.find({});
     res.render("hotels/index", { hotels });
 }
 
 module.exports.createHotel = async (req, res) => {  
-  console.log(req.files);
+
+  const geoData =await geoCoder.forwardGeocode({ 
+    query: req.body.hotel.location, 
+    limit: 1 
+  }).send()
   const hotel = new Hotel(req.body.hotel);
+  hotel.geometry = geoData.body.features[0].geometry;
   hotel.author = req.user._id;
   hotel.image = req.files.map(file => {
     return {
