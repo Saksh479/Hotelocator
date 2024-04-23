@@ -1,4 +1,4 @@
- [
+ module.exports = [
   {
     city: "Delhi",
     latitude: "28.6100",
