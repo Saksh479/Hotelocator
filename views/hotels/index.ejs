@@ -1,5 +1,5 @@
 <% layout('./layouts/boilerplate') %>
-<div id="map"></div>
+<div id="map" style="width:100%; height: 25rem"></div>
 <h1 class="text-center">All Hotels</h1>
 <div class="container">
     <div class="row">
@@ -32,3 +32,8 @@
       <% } %>
   </div>
 </div>
+<script>
+  const mapToken = '<%- process.env.MAPBOX_TOKEN%>';
+  const hotelsData = {features: <%- JSON.stringify(hotels) %> };
+</script>
+<script src="/js/clusterMap.js"></script>
