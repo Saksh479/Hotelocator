@@ -9,7 +9,7 @@ module.exports.isLoggedIn = (req, res, next) => {
         req.flash("error", "You must be signed in to add a new hotel");
         return res.redirect("/login");
     }next();
-}
+} 
 
 module.exports.verifyAuthor = async(req, res, next) => {
     const { id } = req.params;

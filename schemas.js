@@ -1,7 +1,5 @@
 const Joi = require("joi");
 
-const Joi = BaseJoi.extend(extension);
-
 module.exports.hotelSchema = Joi.object({
   hotel: Joi.object({
     title: Joi.string().required(),
@@ -19,3 +17,4 @@ module.exports.reviewSchema = Joi.object({
     comment: Joi.string().required(),
   }).required(),
 });
+
