@@ -18,16 +18,23 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const port = 3000;
 const userRoutes = require("./routes/users"); 
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/hotelocator"
+const MongoStore = require('connect-mongo');
 
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 main().catch((err) => console.log(err));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
-app.use("/css",express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
+app.use("/css",express.static(path.join(__dirname, "node_mod  ules/bootstrap/dist/css")));
 app.use("/js",express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
 app.use(methodOverride("_method"));
+app.use(helmet({contentSecurityPolicy: false}));
+
 app.use(mongoSanitize({
     replaceWith: '_',
     onSanitize: ({ req, key }) => {
@@ -36,12 +43,27 @@ app.use(mongoSanitize({
   }),
 );
 app.use(flash());
+
+const secret = process.env.SECRET || "thisisasecret";
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  secret,
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (e) {
+  console.log("Session Store Error", e);
+});
 const sessionConfig = {
-  secret: "thisisasecret",
+  store,
+  name: "session",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    //secure: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },  
@@ -68,15 +90,16 @@ app.use('/hotels',hotelRoutes);
 app.use('/hotels/:id/reviews',reviewRoutes);
 app.use('/',userRoutes);
 
+// 
 async function main() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/hotelocator", {
+    await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     console.log("Connected to database");
   } catch (error) {
-    handleError(error);
+    handleError(error); 
   }
 } 
 

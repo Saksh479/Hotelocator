@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const Hotel = require('../models/hotelocator');
 const cities = require('./in');
-
+const dbUrl = process.env.DB_URL;
 const {hotelPrefixes, hotelSuffixes} = require('./seed-helper');
 main().catch(err => console.log(err));
 async function main() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/hotelocator', { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect("mongodb://127.0.0.1:27017/hotelocator",
+        { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('Connected to database');
 
     } catch (error) {
@@ -17,7 +18,7 @@ const prelength = hotelPrefixes.length;
 const sufflength = hotelSuffixes.length;
 const seedDB = async () => {
     await Hotel.deleteMany({});
-    for (let i = 0; i < 250; i++) {
+    for (let i = 0; i < 300; i++) {
         random150 = Math.floor(Math.random() * cities.length);
     const hotel = new Hotel({
         author: '661c14bf4e822cd2724e7750',
