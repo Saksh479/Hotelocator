@@ -16,7 +16,7 @@ const passport = require("passport");
 const mongoSanitize = require('express-mongo-sanitize');
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-const port = 3000;
+const port =  process.env.PORT || 3000;
 const userRoutes = require("./routes/users"); 
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -43,6 +43,7 @@ app.use(mongoSanitize({
   }),
 );
 app.use(flash());
+ 
 
 const secret = process.env.SECRET || "thisisasecret";
 
