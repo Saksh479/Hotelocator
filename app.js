@@ -13,10 +13,10 @@ const path = require("path");
 const hotelRoutes = require('./routes/hotels')
 const reviewRoutes = require('./routes/reviews')
 const passport = require("passport");
+const mongoSanitize = require('express-mongo-sanitize');
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const port = 3000;
-
 const userRoutes = require("./routes/users"); 
 
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +28,13 @@ app.set("views", path.join(__dirname, "views"));
 app.use("/css",express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use("/js",express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
 app.use(methodOverride("_method"));
-
+app.use(mongoSanitize({
+    replaceWith: '_',
+    onSanitize: ({ req, key }) => {
+        console.warn(`This request[${key}] is sanitized`);
+    }
+  }),
+);
 app.use(flash());
 const sessionConfig = {
   secret: "thisisasecret",
@@ -76,7 +82,7 @@ async function main() {
 
 
 
-app.get("/", (req, res) => res.render("pages/home"));
+app.get("/", (req, res) => res.render("home"));
 
 
 app.all("*", (req, res, next) => {

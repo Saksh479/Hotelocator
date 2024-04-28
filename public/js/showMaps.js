@@ -7,7 +7,6 @@ const map = new mapboxgl.Map({
 	center: hotelData.geometry.coordinates, // starting position [lng, lat]
 	zoom: 10, // starting zoom
 });
-
 const marker = new mapboxgl.Marker()
     .setLngLat(hotelData.geometry.coordinates)
     .setPopup(
@@ -17,3 +16,5 @@ const marker = new mapboxgl.Marker()
             )
     )
     .addTo(map);
+     map.addControl(new mapboxgl.NavigationControl(), 'bottom-left')
+

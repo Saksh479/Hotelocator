@@ -2,12 +2,12 @@
 <div id="map" style="width:100%; height: 25rem"></div>
 <h1 class="text-center">All Hotels</h1>
 <div class="container">
-    <div class="row">
-      <% for (let hotel of hotels) { %>
+  <div class="row">
+  <% for (let hotel of hotels) { %>
         <div class="col-md-12 mb-3">          
-          <div class="card" >
+            <div class="card" >
             <div class="row">
-              <div class="col-md-4"> <!-- Modified this div -->
+              <div class="col-md-4" > <!-- Modified this div -->
                 <% if(hotel.image.length) {%>
                 <img src="<%=hotel.image[0].url%>" class="card-img" alt="" style="height: 100%; object-fit: cover;">
                 <% } else{ %>

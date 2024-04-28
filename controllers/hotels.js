@@ -44,6 +44,8 @@ module.exports.showHotel = async (req, res) => {
       req.flash("error", "Cannot find that hotel!");
       return res.redirect("/hotels");
     }
+    //console.log(hotel);
+    
     res.render("hotels/show", { hotel });
   }
 
