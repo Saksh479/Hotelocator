@@ -1,5 +1,4 @@
 const Joi = require("joi");
-const sanitizeHtml = require("sanitize-html");
 
 const Joi = BaseJoi.extend(extension);
 
