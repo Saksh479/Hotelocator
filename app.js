@@ -117,4 +117,6 @@ app.use((err, req, res, next) => {
   res.render("error", { err, message, status});
 });
  
-app.listen(port, () => console.log(`http://localhost:${port}`));
+//app.listen(port, () => console.log(`http://localhost:${port}`));
+
+module.exports = app;
