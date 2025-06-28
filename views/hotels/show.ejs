@@ -43,7 +43,7 @@
           <p class="card-text"><b>Submitted by: </b><%=hotel.author.username%></p>
         </li>
       </ul>
-      <% if(loggedInUser && hotel.author.equals(loggedInUser)) {%>
+      <% if(typeof loggedInUser !== 'undefined' && loggedInUser && hotel.author.equals(loggedInUser)) {%>
         <div class="card-body">
           <a href="/hotels/<%=hotel._id%>/edit" class="btn btn-outline-dark">Edit Hotel</a>
           <a href="/hotels/<%=hotel._id%>/delete" class="btn btn-danger">Delete</a>
@@ -58,7 +58,7 @@
       </div>
         <div id='map' style='width: 100%; height: 20rem;'></div>
       <div class="card-body">
-      <% if(loggedInUser) {%>
+      <% if(typeof loggedInUser !== 'undefined' && loggedInUser) {%>
       <h6>Leave a Review</h6>
       <form
         action="/hotels/<%=hotel._id%>/reviews"
@@ -105,7 +105,7 @@
               <p class="starability-result card-title" data-rating="<%= reviews.rating %>"></p>
               <div class="fst-italic"><b>By:</b> <%=reviews.author.username%></div>
               <p class="card-text"><b>Comment: </b><%= reviews.comment %></p>
-              <% if(loggedInUser && reviews.author.equals(loggedInUser._id)) {%>
+              <% if(typeof loggedInUser !== 'undefined' && loggedInUser && reviews.author.equals(loggedInUser._id)) {%>
               <form action="/hotels/<%=hotel._id%>/reviews/<%=reviews._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-sm btn-danger">Delete</button>
               </form>
